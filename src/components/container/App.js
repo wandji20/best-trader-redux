@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
+import Markets from './Markets';
 
 const App = () => (
   <>
-    <div className="container">
-      Hello from App
-    </div>
+    <Markets />
   </>
 );
 
