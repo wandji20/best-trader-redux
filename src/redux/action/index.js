@@ -1,4 +1,10 @@
-import { FETCH_API_FAILURE, FETCH_API_SUCCESS, FETCH_API_REQUEST } from '../constants';
+import {
+  FETCH_API_FAILURE,
+  FETCH_API_SUCCESS,
+  FETCH_API_REQUEST,
+  FILTER_CURRENCY,
+  FILTER_MARKETS,
+} from '../constants';
 
 const fetchApiRequest = () => ({
   type: FETCH_API_REQUEST,
@@ -28,6 +34,21 @@ const fetchMarkets = () => async (dispatch) => {
   }
 };
 
+const filterByCurrencyAction = (currency) => ({
+  type: FILTER_CURRENCY,
+  payload: currency,
+});
+
+const filterByMarketAction = (market) => ({
+  type: FILTER_MARKETS,
+  payload: market,
+});
+
 export {
-  fetchApiRequest, fetchApiSuccess, fetchApiFailure, fetchMarkets,
+  fetchApiRequest,
+  fetchApiSuccess,
+  fetchApiFailure,
+  fetchMarkets,
+  filterByCurrencyAction,
+  filterByMarketAction,
 };
