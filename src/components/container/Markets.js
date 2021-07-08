@@ -12,19 +12,22 @@ const Markets = (props) => {
   useEffect(() => {
     fetchMarkets();
   }, []);
-  // const filterMarkets = (markets) => {
-  //   const newMarkets = [...markets];
-  //   if (currency !== '') {
-  //     newMarkets = market.filter((market) => market.ticker.includes(currency));
-  //   }
-  //   return newMarkets;
-  // };
+  const filterMarkets = (markets) => {
+    let newMarkets = [...markets];
+    if (currency !== '') {
+      newMarkets = markets.filter((market) => market.ticker.includes(currency));
+    }
+    return newMarkets;
+  };
+  const filteredMarkets = filterMarkets(markets);
+
+  console.log(markets.length, filteredMarkets.length);
   return (
     <div className="container mt-5">
       <div className="row">
         {
-          markets.length > 0
-            ? markets.map((market) => {
+          filteredMarkets.length > 0
+            ? filteredMarkets.map((market) => {
               const newMarket = { ...market };
               newMarket.changes = market.changes.toString();
               return <Market key={newMarket.ticker} market={newMarket} />;
