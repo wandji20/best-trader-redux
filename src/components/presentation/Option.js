@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Option = ({ ticker }) => (
-  <option value={ticker}>
-    {ticker}
-  </option>
-);
+const Option = (props) => {
+  const { ticker } = props;
+  return (
+    <option value={ticker}>
+      {ticker}
+    </option>
+  );
+};
 
 Option.propTypes = {
   ticker: PropTypes.string,

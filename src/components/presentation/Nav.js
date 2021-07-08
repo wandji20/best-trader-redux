@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Option from './Option';
+import { filterByCurrencyAction, filterByMarketAction } from '../../redux/action';
 
 const Nav = (props) => {
-  const { markets } = props;
+  const { markets, filterByCurrency, filterByMarket } = props;
 
   const getMarketPickers = (markets) => markets.map((market) => market.ticker);
 
@@ -15,6 +16,14 @@ const Nav = (props) => {
   const currencies = allCurrencies.filter(
     (currency, index) => allCurrencies.indexOf(currency) === index,
   );
+
+  const handleCurrencyChange = (e) => {
+    filterByCurrency(e.target.value);
+  };
+
+  const handleMarketChange = (e) => {
+    filterByMarket(e.target.value);
+  };
 
   return (
     <header className="container remove-padding bg-dark text-white">
@@ -29,21 +38,33 @@ const Nav = (props) => {
             </span>
           </h5>
           <div className="d-flex justify-content-center align-items-center">
-            <select className="form-select nav-item mx-3">
+            <select
+              className="form-select nav-item mx-3"
+              onChange={handleMarketChange}
+            >
               <option key="All">All</option>
               {
                 tickers.map((ticker) => (
-                  <Option key={ticker} ticker={ticker} />
+                  <Option
+                    key={ticker}
+                    ticker={ticker}
+                  />
                 ))
               }
             </select>
 
-            <select className="form-select nav-item mx-3">
+            <select
+              onChange={handleCurrencyChange}
+              className="form-select nav-item mx-3"
+            >
               <option key="All">All</option>
               {
                 currencies.sort()
                   .map((currency) => (
-                    <Option key={currency} ticker={currency} />
+                    <Option
+                      key={currency}
+                      ticker={currency}
+                    />
                   ))
               }
             </select>
@@ -61,8 +82,19 @@ const mapStateToProps = (state) => ({
   markets: state.forexReducer.markets,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  filterByCurrency: (data) => {
+    dispatch(filterByCurrencyAction(data));
+  },
+  filterByMarket: (data) => {
+    dispatch(filterByMarketAction(data));
+  },
+});
+
 Nav.propTypes = {
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterByCurrency: PropTypes.func.isRequired,
+  filterByMarket: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);
