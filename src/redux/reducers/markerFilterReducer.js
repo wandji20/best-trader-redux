@@ -8,6 +8,7 @@ const marketReducer = (state = initialState, action) => {
       return {
         ...state,
         market,
+        currency: '',
       };
     }
     case FILTER_CURRENCY: {
@@ -15,6 +16,7 @@ const marketReducer = (state = initialState, action) => {
       return {
         ...state,
         currency,
+        market: '',
       };
     }
     default:

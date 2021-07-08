@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
-import Markets from './Markets';
+// import Markets from './Markets';
 import Nav from '../presentation/Nav';
+import MarketDetails from './MarketDetails';
 
 const App = () => (
   <>
     <Nav />
-    <Markets />
+    <MarketDetails />
+    {/* <Markets /> */}
   </>
 );
 

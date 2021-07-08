@@ -6,10 +6,6 @@ color: #61dafb; */
   max-width: 100%;
 }
 
-.form-select {
-  /* width: 20%; */
-}
-
 #root {
   border: 1px solid;
   width: 100vw;
@@ -17,12 +13,7 @@ color: #61dafb; */
 }
 
 body {
-  border: 1px solid blue;
-  /* max-width: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-   */
+  height: 100vh;
 }
 
 #article {
