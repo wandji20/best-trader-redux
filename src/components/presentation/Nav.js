@@ -41,9 +41,10 @@ const Nav = (props) => {
             <select className="form-select nav-item mx-3">
               <option key="All">All</option>
               {
-                currencies.sort().map((currency) => (
-                  <Option key={currency} ticker={currency} />
-                ))
+                currencies.sort()
+                  .map((currency) => (
+                    <Option key={currency} ticker={currency} />
+                  ))
               }
             </select>
           </div>
