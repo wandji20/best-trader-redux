@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMarkets } from '../../redux/action';
+import Market from '../presentation/Market';
 
 const Markets = (props) => {
   const { fetchMarkets, markets } = props;
@@ -9,11 +10,11 @@ const Markets = (props) => {
     fetchMarkets();
   }, []);
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row">
         {
           markets.length > 0
-            ? markets.map((market) => <div key={market.id} className="col-3">{market.ticker}</div>)
+            ? markets.map((market) => <Market key={market.id} market={market} />)
             : <div className="col-6"> Please Reload to see markets</div>
         }
       </div>
