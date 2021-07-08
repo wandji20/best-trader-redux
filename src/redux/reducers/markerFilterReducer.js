@@ -1,16 +1,20 @@
 import { FILTER_MARKETS, FILTER_CURRENCY } from '../constants';
 
-const initialState = { currency: 'All', market: '' };
+const initialState = { currency: '', market: '' };
 const marketReducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_MARKETS: {
+      const market = action.payload === 'All' ? '' : action.payload;
       return {
-        ...state, market: action.payload,
+        ...state,
+        market,
       };
     }
     case FILTER_CURRENCY: {
+      const currency = action.payload === 'All' ? '' : action.payload;
       return {
-        ...state, currency: action.payload,
+        ...state,
+        currency,
       };
     }
     default:
