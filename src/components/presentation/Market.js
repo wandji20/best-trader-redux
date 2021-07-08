@@ -7,7 +7,7 @@ const Market = (props) => {
     ticker, bid, ask, changes, high, low,
   } = market;
   return (
-    <article className="col-sm-6 col-md-4 d-flex flex-column bg-dark text-white border">
+    <article id="article" className="col-sm-6 col-md-4 d-flex flex-column bg-dark text-white">
       <h5>{ticker}</h5>
       <div className=" d-flex flex-column">
         <p className="d-flex justify-content-between">

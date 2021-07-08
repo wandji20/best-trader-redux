@@ -9,3 +9,22 @@ color: #61dafb; */
 .form-select {
   /* width: 20%; */
 }
+
+#root {
+  border: 1px solid;
+  width: 100vw;
+  background-color: #282c34;
+}
+
+body {
+  border: 1px solid blue;
+  /* max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+   */
+}
+
+#article {
+  border: 10px solid #282c34;
+}

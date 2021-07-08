@@ -10,7 +10,7 @@ const Markets = (props) => {
     fetchMarkets();
   }, []);
   return (
-    <div className="container px-1 mt-5">
+    <div className="container mt-5">
       <div className="row">
         {
           markets.length > 0
