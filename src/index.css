@@ -5,3 +5,17 @@ color: #61dafb; */
   padding-right: 0;
   max-width: 100%;
 }
+
+#root {
+  border: 1px solid;
+  width: 100vw;
+  background-color: #282c34;
+}
+
+body {
+  height: 100vh;
+}
+
+#article {
+  border: 10px solid #282c34;
+}
