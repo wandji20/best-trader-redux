@@ -38,7 +38,7 @@ const Nav = (props) => {
             </span>
           </h5>
           <div className="d-flex justify-content-center align-items-center">
-            <select
+            {/* <select
               className="form-select nav-item mx-3"
               onChange={handleMarketChange}
             >
@@ -51,7 +51,15 @@ const Nav = (props) => {
                   />
                 ))
               }
-            </select>
+            </select> */}
+            <div className="input-group">
+              <input
+                onChange={handleMarketChange}
+                type="text"
+                className="form-control"
+                placeholder="market"
+              />
+            </div>
 
             <select
               onChange={handleCurrencyChange}

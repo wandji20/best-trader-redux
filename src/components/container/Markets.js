@@ -8,7 +8,7 @@ const Markets = (props) => {
   const {
     fetchMarkets, markets, selectedMarket, currency,
   } = props;
-  console.log(selectedMarket, currency);
+
   useEffect(() => {
     fetchMarkets();
   }, []);
@@ -17,11 +17,15 @@ const Markets = (props) => {
     if (currency !== '') {
       newMarkets = markets.filter((market) => market.ticker.includes(currency));
     }
+    if (selectedMarket !== '') {
+      newMarkets = markets.filter(
+        (market) => market.ticker.startsWith(selectedMarket.toUpperCase()),
+      );
+    }
     return newMarkets;
   };
   const filteredMarkets = filterMarkets(markets);
 
-  console.log(markets.length, filteredMarkets.length);
   return (
     <div className="container mt-5">
       <div className="row">
