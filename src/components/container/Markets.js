@@ -10,11 +10,15 @@ const Markets = (props) => {
     fetchMarkets();
   }, []);
   return (
-    <div className="container mt-5">
+    <div className="container px-1 mt-5">
       <div className="row">
         {
           markets.length > 0
-            ? markets.map((market) => <Market key={market.id} market={market} />)
+            ? markets.map((market) => {
+              const newMarket = { ...market };
+              newMarket.changes = market.changes.toString();
+              return <Market key={newMarket.ticker} market={newMarket} />;
+            })
             : <div className="col-6"> Please Reload to see markets</div>
         }
       </div>
