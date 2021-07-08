@@ -1,12 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Option from './Option';
 
 const Nav = (props) => {
   const { markets } = props;
+
   const getMarketPickers = (markets) => markets.map((market) => market.ticker);
+
   const tickers = getMarketPickers(markets);
-  // console.log(tickers);
+  const getCurrency = (tickers) => tickers.map((ticker) => ticker.split('/'));
+
+  const allCurrencies = getCurrency(tickers).flat();
+  const currencies = allCurrencies.filter(
+    (currency, index) => allCurrencies.indexOf(currency) === index,
+  );
+
   return (
     <header className="container remove-padding bg-dark text-white">
       <nav className="container d-flex justify-content-center py-3">
@@ -24,21 +33,18 @@ const Nav = (props) => {
               <option key="All">All</option>
               {
                 tickers.map((ticker) => (
-                  <option key={ticker} value={ticker}>
-                    {ticker}
-                  </option>
+                  <Option key={ticker} ticker={ticker} />
                 ))
               }
-              {/* <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option> */}
             </select>
 
             <select className="form-select nav-item mx-3">
-              <option selected>Choose...</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option key="All">All</option>
+              {
+                currencies.map((currency) => (
+                  <Option key={currency} ticker={currency} />
+                ))
+              }
             </select>
           </div>
         </div>
