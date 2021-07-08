@@ -5,3 +5,7 @@ color: #61dafb; */
   padding-right: 0;
   max-width: 100%;
 }
+
+.form-select {
+  /* width: 20%; */
+}
