@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMarkets } from '../../redux/action';
 import Market from '../presentation/Market';
+import Nav from '../presentation/Nav';
+import filterMarkets from '../../helpers/filterMarkets';
 
 const Markets = (props) => {
   const {
@@ -12,34 +14,26 @@ const Markets = (props) => {
   useEffect(() => {
     fetchMarkets();
   }, []);
-  const filterMarkets = (markets) => {
-    let newMarkets = [...markets];
-    if (currency !== '') {
-      newMarkets = markets.filter((market) => market.ticker.includes(currency));
-    }
-    if (selectedMarket !== '') {
-      newMarkets = markets.filter(
-        (market) => market.ticker.startsWith(selectedMarket.toUpperCase()),
-      );
-    }
-    return newMarkets;
-  };
-  const filteredMarkets = filterMarkets(markets);
+
+  const filteredMarkets = filterMarkets(markets, selectedMarket, currency);
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        {
-          filteredMarkets.length > 0
-            ? filteredMarkets.map((market) => {
-              const newMarket = { ...market };
-              newMarket.changes = market.changes.toString();
-              return <Market key={newMarket.ticker} market={newMarket} />;
-            })
-            : <div className="col-6"> Please Reload to see markets</div>
-        }
+    <>
+      <Nav />
+      <div className="container-fluid bg-dark">
+        <div className="row">
+          {
+            filteredMarkets.length > 0
+              ? filteredMarkets.map((market) => {
+                const newMarket = { ...market };
+                newMarket.changes = market.changes.toString();
+                return <Market key={newMarket.ticker} market={newMarket} />;
+              })
+              : <div className="col-6"> Please Reload to see markets</div>
+          }
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
