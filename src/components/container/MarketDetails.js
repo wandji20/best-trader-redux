@@ -36,59 +36,91 @@ const MarketDetails = () => {
         y: [open, high, low, close],
       });
     });
-    return ([{ data: candles.slice(-300) }]);
+    return candles.slice(-300);
   };
 
-  const [market, setMarket] = useState({ marketDetails: [], marketError: '' });
-  const [dailyData, setDailyData] = useState({ dailyDataDetails: [], dailyDataError: '' });
-  const newData = createCandleData(dailyData.dailyDataDetails);
+  const [marketDetails, setMarketDetails] = useState({});
+  const [marketDetailsError, setMarketDetailsError] = useState('');
+
+  const [candleData, setCandleData] = useState([]);
+  const [candleDataError, setCandleDataError] = useState('');
+
+  // const newData = createCandleData(dailyData.dailyDataDetails);
 
   useEffect(() => {
-    const getMarketInfo = async () => {
+    const getMarketDetails = async () => {
       try {
         const response = await fetch(api);
         const data = await response.json();
-        setMarket({ ...market, marketDetails: data[0] });
+        setMarketDetails(data[0]);
       } catch (error) {
-        setMarket({ ...market, marketError: error });
+        setMarketDetailsError(error);
       }
     };
-    getMarketInfo();
+    getMarketDetails();
   }, []);
 
   useEffect(() => {
-    const getHistory = async () => {
+    const getCandleData = async () => {
       try {
         const response = await fetch(historicalApi);
         const data = await response.json();
-        setDailyData(
-          {
-            ...dailyData,
-            dailyDataDetails: data,
-          },
-        );
+        const createdCandleData = createCandleData(data);
+        console.log(createdCandleData);
+        setCandleData(createdCandleData);
       } catch (error) {
-        setDailyData(
-          {
-            ...dailyData,
-            dailyDataError: error,
-          },
-        );
+        setCandleDataError(error);
       }
     };
-    getHistory();
+    getCandleData();
   }, []);
 
-  console.log([dailyData, market]);
+  const {
+    ticker, bid, ask, changes, high, low,
+  } = marketDetails;
+
+  console.log([marketDetailsError, candleDataError]);
+
   return (
     <section className="item details container mt-3 ">
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-between my-5">
+        <div className="col-12 col-md-5">
+          <article className="d-flex flex-column bg-dark text-white p-2">
+            <h5>{ticker}</h5>
+            <div className=" d-flex flex-column">
+              <p className="d-flex justify-content-between">
+                <span>
+                  Bid:
+                  {bid}
+                </span>
+                <span>
+                  Ask:
+                  {ask}
+                </span>
+              </p>
+              <p className="d-flex justify-content-center">
+                arrow
+                {changes}
+              </p>
+              <p className="d-flex justify-content-between">
+                <span>
+                  High:
+                  {high}
+                </span>
+                <span>
+                  Low:
+                  {low}
+                </span>
+              </p>
+            </div>
+          </article>
+        </div>
         <div className="col-12 col-md-6">
-          display market info
+          Histogram
         </div>
       </div>
       <div id="chart" className="row">
-        <Chart options={options} series={newData} type="candlestick" height={350} />
+        <Chart options={options} series={[{ data: candleData }]} type="candlestick" height={350} />
       </div>
     </section>
   );
