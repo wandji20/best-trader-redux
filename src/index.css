@@ -13,3 +13,7 @@ color: #61dafb; */
 #chart {
   color: white;
 }
+
+a {
+  text-decoration: none;
+}

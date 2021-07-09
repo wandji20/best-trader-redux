@@ -27,10 +27,10 @@ const Nav = (props) => {
 
   return (
     <header className="container remove-padding bg-dark text-white">
-      <nav className="container d-flex justify-content-center py-3">
+      <nav className="container-fluid d-flex justify-content-between py-3">
         <div className="d-flex align-items-center justify-content-between w-sm-100 w-75">
           <h5 className="d-none d-md-flex">
-            <a href="/">
+            <a href="/" className="text-info">
               <span className="">
                 Best Trader
               </span>
@@ -65,9 +65,6 @@ const Nav = (props) => {
               }
             </select>
           </div>
-        </div>
-        <div className="m-auto d-none d-md-block">
-          theme switch
         </div>
       </nav>
     </header>
