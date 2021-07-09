@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMarkets } from '../../redux/action';
 import Market from '../presentation/Market';
+import filterMarkets from '../../helpers/filterMarkets';
 
 const Markets = (props) => {
   const {
@@ -12,19 +13,8 @@ const Markets = (props) => {
   useEffect(() => {
     fetchMarkets();
   }, []);
-  const filterMarkets = (markets) => {
-    let newMarkets = [...markets];
-    if (currency !== '') {
-      newMarkets = markets.filter((market) => market.ticker.includes(currency));
-    }
-    if (selectedMarket !== '') {
-      newMarkets = markets.filter(
-        (market) => market.ticker.startsWith(selectedMarket.toUpperCase()),
-      );
-    }
-    return newMarkets;
-  };
-  const filteredMarkets = filterMarkets(markets);
+
+  const filteredMarkets = filterMarkets(markets, selectedMarket, currency);
 
   return (
     <div className="container-fluid bg-dark">
