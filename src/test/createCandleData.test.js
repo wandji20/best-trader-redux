@@ -22,16 +22,3 @@ test('Returns an array of all data containing objects with keys x and y', () => 
   const points = createCandleData(data);
   expect(points).toEqual(response);
 });
-
-// const createCandleData = (data) => {
-//   const candles = data.map((entry) => {
-//     const {
-//       open, high, low, close, date,
-//     } = entry;
-//     return ({
-//       x: date,
-//       y: [open, high, low, close],
-//     });
-//   });
-//   return candles.slice(0, 300);
-// };
