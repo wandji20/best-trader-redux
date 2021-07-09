@@ -23,7 +23,7 @@ const Details = (props) => {
       try {
         const response = await fetch(historicalApi);
         const data = await response.json();
-        console.log(data);
+
         const createdCandleData = createCandleData(data);
 
         if (createdCandleData !== []) {
@@ -35,8 +35,6 @@ const Details = (props) => {
     };
     getCandleData();
   }, []);
-
-  console.log(candleData);
 
   const { markets } = props;
 

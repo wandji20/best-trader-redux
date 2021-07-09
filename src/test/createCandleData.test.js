@@ -2,7 +2,7 @@ import createCandleData from '../helpers/createCandleData';
 
 const response = [
   {
-    x: "2021-07-02 03:55:00",
+    x: '2021-07-02 03:55:00',
     y: [1.3756, 1.37605, 1.3751, 1.37594],
   },
 ];
