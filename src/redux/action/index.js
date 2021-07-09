@@ -20,7 +20,7 @@ const fetchApiFailure = (error) => ({
   payload: error,
 });
 
-const API_KEY = 'f3e7a6c62566f5327da3a9f3fd13890e';
+const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
 const api = `https://financialmodelingprep.com/api/v3/fx?apikey=${API_KEY}`;
 
 const fetchMarkets = () => async (dispatch) => {
