@@ -23,20 +23,18 @@ const Details = (props) => {
       try {
         const response = await fetch(historicalApi);
         const data = await response.json();
+
         const createdCandleData = createCandleData(data);
-        console.log(createdCandleData);
+
         if (createdCandleData !== []) {
           setCandleData({ data: createdCandleData, error: '' });
         }
       } catch (error) {
-        console.log(error);
         setCandleData({ data: [], error });
       }
     };
     getCandleData();
   }, []);
-
-  console.log(candleData);
 
   const { markets } = props;
 
