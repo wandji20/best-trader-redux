@@ -1,20 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import Chart from 'react-apexcharts';
+import createCandleData from '../../helpers/createCandleData';
 
 const Details = (props) => {
-  console.log(document.title);
-  const { state, pathname } = useLocation();
-  console.log(pathname);
+  const { state } = useLocation();
+
   const selectedTicker = state.ticker;
+  const urlMarketTag = selectedTicker.split('/').join('');
+
+  const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
+
+  const historicalApi = `https://financialmodelingprep.com/api/v3/historical-chart/5min/${urlMarketTag}?apikey=${API_KEY}`;
+
+  const [candleData, setCandleData] = useState({ data: [], error: '' });
+
+  useEffect(() => {
+    const getCandleData = async () => {
+      try {
+        const response = await fetch(historicalApi);
+        const data = await response.json();
+        const createdCandleData = createCandleData(data);
+        console.log(createdCandleData);
+        if (createdCandleData !== []) {
+          setCandleData({ data: createdCandleData, error: '' });
+        }
+      } catch (error) {
+        console.log(error);
+        setCandleData({ data: [], error });
+      }
+    };
+    getCandleData();
+  }, []);
+
+  console.log(candleData);
+
   const { markets } = props;
 
   const market = markets.filter((market) => (market.ticker === selectedTicker))[0];
-  // console.log(markets);
+
   const {
     ticker, bid, ask, changes, high, low,
   } = market;
+
+  const options = {
+    chart: {
+      type: 'candlestick',
+      height: 350,
+    },
+    title: {
+      text: 'CandleStick Chart',
+      align: 'left',
+    },
+    xaxis: {
+      type: 'datetime',
+    },
+    yaxis: {
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };
   return (
     <section className="item details container mt-3 ">
       <div className="row">
@@ -60,6 +108,14 @@ const Details = (props) => {
               : <div> Nodata to display </div>
           }
         </div>
+      </div>
+      <div id="chart" className="row  my-3">
+        <Chart
+          options={options}
+          series={[{ data: candleData.data }]}
+          type="candlestick"
+          height={350}
+        />
       </div>
     </section>
   );

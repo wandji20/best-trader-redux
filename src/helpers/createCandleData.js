@@ -8,7 +8,7 @@ const createCandleData = (data) => {
       y: [open, high, low, close],
     });
   });
-  return candles.slice(-300);
+  return candles.slice(0, 300);
 };
 
 export default createCandleData;

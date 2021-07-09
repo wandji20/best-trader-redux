@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 
 const Market = (props) => {
   const { market } = props;
@@ -23,8 +24,24 @@ const Market = (props) => {
           </span>
         </p>
         <p className="d-flex justify-content-center">
-          arrow
-          {changes}
+          {
+            changes > 0
+              ? (
+                <span className="text-info">
+                  <FaArrowUp />
+                  {' '}
+                  {changes}
+                </span>
+              )
+              : (
+                <span className="text-danger">
+                  <FaArrowDown />
+                  {' '}
+                  {changes}
+                </span>
+              )
+          }
+
         </p>
         <p className="d-flex justify-content-between">
           <span>
