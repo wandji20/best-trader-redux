@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Chart from 'react-apexcharts';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import createCandleData from '../../helpers/createCandleData';
 
 const Details = (props) => {
@@ -81,24 +82,44 @@ const Details = (props) => {
                     <p className="d-flex justify-content-between">
                       <span>
                         Bid:
+                        {' '}
                         {bid}
                       </span>
                       <span>
                         Ask:
+                        {' '}
                         {ask}
                       </span>
                     </p>
                     <p className="d-flex justify-content-center">
-                      arrow
-                      {changes}
+                      {
+                        changes > 0
+                          ? (
+                            <span className="text-info">
+                              <FaArrowUp />
+                              {' '}
+                              {changes}
+                            </span>
+                          )
+                          : (
+                            <span className="text-danger">
+                              <FaArrowDown />
+                              {' '}
+                              {changes}
+                            </span>
+                          )
+                      }
+
                     </p>
                     <p className="d-flex justify-content-between">
                       <span>
                         High:
+                        {' '}
                         {high}
                       </span>
                       <span>
                         Low:
+                        {' '}
                         {low}
                       </span>
                     </p>

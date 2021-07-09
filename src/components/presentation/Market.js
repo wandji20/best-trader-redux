@@ -8,7 +8,7 @@ const Market = (props) => {
   const {
     ticker, bid, ask, changes, high, low,
   } = market;
-  // const params = ticker.split('/').join('');
+
   return (
     <article id="article" className="col-sm-6 col-md-4 d-flex flex-column bg-dark text-white">
       <h5>{ticker}</h5>
@@ -16,10 +16,12 @@ const Market = (props) => {
         <p className="d-flex justify-content-between">
           <span>
             Bid:
+            {' '}
             {bid}
           </span>
           <span>
             Ask:
+            {' '}
             {ask}
           </span>
         </p>
@@ -46,10 +48,12 @@ const Market = (props) => {
         <p className="d-flex justify-content-between">
           <span>
             High:
+            {' '}
             {high}
           </span>
           <span>
             Low:
+            {' '}
             {low}
           </span>
         </p>
