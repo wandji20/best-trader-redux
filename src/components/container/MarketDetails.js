@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Chart from 'react-apexcharts';
 
 const MarketDetails = () => {
+  const { search } = useLocation();
+  const marketTag = search.split('=')[1];
+
   const API_KEY = 'f3e7a6c62566f5327da3a9f3fd13890e';
-  const marketTag = 'EURUSD';
+  // const marketTag = 'EURUSD';
   const api = `https://financialmodelingprep.com/api/v3/fx/${marketTag}?apikey=${API_KEY}`;
   const historicalApi = `https://financialmodelingprep.com/api/v3/historical-chart/5min/${marketTag}?apikey=${API_KEY}`;
 
@@ -45,8 +49,6 @@ const MarketDetails = () => {
   const [candleData, setCandleData] = useState([]);
   const [candleDataError, setCandleDataError] = useState('');
 
-  // const newData = createCandleData(dailyData.dailyDataDetails);
-
   useEffect(() => {
     const getMarketDetails = async () => {
       try {
@@ -83,8 +85,8 @@ const MarketDetails = () => {
 
   return (
     <section className="item details container mt-3 ">
-      <div className="d-flex justify-content-between my-5">
-        <div className="col-12 col-md-5">
+      <div className="d-flex justify-content-center my-5">
+        <div className="col-12 col-md-6">
           <article className="d-flex flex-column bg-dark text-white p-2">
             <h5>{ticker}</h5>
             <div className=" d-flex flex-column">
@@ -114,9 +116,6 @@ const MarketDetails = () => {
               </p>
             </div>
           </article>
-        </div>
-        <div className="col-12 col-md-6">
-          Histogram
         </div>
       </div>
       <div id="chart" className="row">

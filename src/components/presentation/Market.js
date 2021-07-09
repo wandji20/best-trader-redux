@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Market = (props) => {
@@ -6,6 +7,7 @@ const Market = (props) => {
   const {
     ticker, bid, ask, changes, high, low,
   } = market;
+  const params = ticker.split('/').join('');
   return (
     <article id="article" className="col-sm-6 col-md-4 d-flex flex-column bg-dark text-white">
       <h5>{ticker}</h5>
@@ -37,7 +39,9 @@ const Market = (props) => {
         <p className="d-flex justify-content-between">
           <button type="button" className="btn btn-success">BUY</button>
           <button type="button" className="btn btn-danger">SELL</button>
-          <button type="button" className="btn btn-info">MORE</button>
+          <Link to={`/MarketDetails?market=${params}`}>
+            <button type="button" className="btn btn-info">MORE</button>
+          </Link>
         </p>
       </div>
     </article>

@@ -27,7 +27,7 @@ const Markets = (props) => {
   const filteredMarkets = filterMarkets(markets);
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid bg-dark">
       <div className="row">
         {
           filteredMarkets.length > 0

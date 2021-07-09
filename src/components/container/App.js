@@ -1,14 +1,17 @@
-import React, { Fragment } from 'react';
-// import Markets from './Markets';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Markets from './Markets';
 import Nav from '../presentation/Nav';
 import MarketDetails from './MarketDetails';
 
 const App = () => (
-  <>
+  <BrowserRouter>
     <Nav />
-    <MarketDetails />
-    {/* <Markets /> */}
-  </>
+    <Switch>
+      <Route exact path="/" component={Markets} />
+      <Route exact path="/MarketDetails" component={MarketDetails} />
+    </Switch>
+  </BrowserRouter>
 );
 
 export default App;
