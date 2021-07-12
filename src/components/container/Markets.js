@@ -1,4 +1,5 @@
-import React, { useEffect, Fragment } from 'react';
+/* eslint-disable */
+import React, { useEffect, Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMarkets } from '../../redux/action';
@@ -17,14 +18,26 @@ const Markets = (props) => {
 
   const filteredMarkets = filterMarkets(markets, selectedMarket, currency);
 
+  const [marketsPerPage] = useState(9);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const indexOfLastMarket = marketsPerPage * pageNumber;
+  const indexOfFirstMarket = indexOfLastMarket - marketsPerPage;
+  const currentMarkets = filteredMarkets.slice(indexOfFirstMarket, indexOfLastMarket);
+
   return (
     <>
       <Nav />
       <div className="container-fluid bg-dark">
+        <div className="row text-white " style={{ background: '#282c34' }}>
+          <span className="d-inline-block">
+            {`${currentMarkets.length} markets`}
+          </span>
+        </div>
         <div className="row">
           {
-            filteredMarkets.length > 0
-              ? filteredMarkets.map((market) => {
+            currentMarkets.length > 0
+              ? currentMarkets.map((market) => {
                 const newMarket = { ...market };
                 newMarket.changes = market.changes.toString();
                 return <Market key={newMarket.ticker} market={newMarket} />;

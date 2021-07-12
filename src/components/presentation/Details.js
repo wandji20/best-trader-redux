@@ -8,7 +8,6 @@ import getMarketDetails from '../../redux/action/marketDetailsAction';
 
 const Details = (props) => {
   const { candleData, getMarketDetails } = props;
-  // console.log(candleData);
   const { state } = useLocation();
   const { market } = state;
 
