@@ -17,7 +17,6 @@ const Markets = (props) => {
   }, []);
 
   const filteredMarkets = filterMarkets(markets, selectedMarket, currency);
-  // console.log(currentPage);
 
   const marketsPerPage = 9;
 
@@ -28,6 +27,9 @@ const Markets = (props) => {
   return (
     <>
       <Nav />
+      <div>
+        <h1>{process.env.API_URL}</h1>
+      </div>
       <div className="container-fluid bg-dark">
         <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
           <Pagination markets={filteredMarkets} />

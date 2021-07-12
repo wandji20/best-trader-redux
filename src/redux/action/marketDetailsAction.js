@@ -18,10 +18,10 @@ const fetchMarketApiRequst = () => ({
   type: FETCH_MARKET_API_REQUEST,
 });
 
-const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
+const { REACT_APP_API_KEY } = process.env;
 
 const getMarketDetails = (marketTag) => {
-  const historicalApi = `https://financialmodelingprep.com/api/v3/historical-chart/5min/${marketTag}?apikey=${API_KEY}`;
+  const historicalApi = `https://financialmodelingprep.com/api/v3/historical-chart/5min/${marketTag}?apikey=${REACT_APP_API_KEY}`;
   return async (dispatch) => {
     dispatch(fetchMarketApiRequst());
     try {
