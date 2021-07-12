@@ -9,7 +9,7 @@ import Pagination from '../presentation/Pagination';
 
 const Markets = (props) => {
   const {
-    fetchMarkets, markets, selectedMarket, currency, currentPage,
+    fetchMarkets, markets, selectedMarket, currency, currentPage, error,
   } = props;
 
   useEffect(() => {
@@ -26,26 +26,38 @@ const Markets = (props) => {
 
   return (
     <>
-      <Nav />
-      <div>
-        <h1>{process.env.API_URL}</h1>
-      </div>
-      <div className="container-fluid bg-dark">
-        <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
-          <Pagination markets={filteredMarkets} />
-        </div>
-        <div className="row">
-          {
-            currentMarkets.length > 0
-              ? currentMarkets.map((market) => {
-                const newMarket = { ...market };
-                newMarket.changes = market.changes.toString();
-                return <Market key={newMarket.ticker} market={newMarket} />;
-              })
-              : <div className="col-6"> Please Reload to see markets</div>
-          }
-        </div>
-      </div>
+      {
+        error === ''
+          ? (
+            <div className="container">
+              <Nav />
+              <div>
+                <h1>{process.env.API_URL}</h1>
+              </div>
+              <div className="container-fluid bg-dark">
+                <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
+                  <Pagination markets={filteredMarkets} />
+                </div>
+                <div className="row">
+                  {
+                  currentMarkets.length > 0
+                    ? currentMarkets.map((market) => {
+                      const newMarket = { ...market };
+                      newMarket.changes = market.changes.toString();
+                      return <Market key={newMarket.ticker} market={newMarket} />;
+                    })
+                    : <div className="col-6"> Please Reload to see markets</div>
+                }
+                </div>
+              </div>
+            </div>
+          )
+          : (
+            <div className="row h1 text-danger justify-content-center fs-1">
+              {error}
+            </div>
+          )
+}
     </>
   );
 };
@@ -57,6 +69,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
+  error: state.forexReducer.error,
   currentPage: state.marketReducer.currentPage,
   markets: state.forexReducer.markets,
   selectedMarket: state.marketReducer.market,
@@ -64,6 +77,7 @@ const mapStateToProps = (state) => ({
 });
 
 Markets.propTypes = {
+  error: PropTypes.string.isRequired,
   fetchMarkets: PropTypes.func.isRequired,
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedMarket: PropTypes.string.isRequired,

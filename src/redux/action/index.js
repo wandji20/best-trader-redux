@@ -32,7 +32,7 @@ const fetchMarkets = () => async (dispatch) => {
     const markets = await response.json();
     dispatch(fetchApiSuccess(markets));
   } catch (error) {
-    dispatch(fetchApiFailure({ message: error.message }));
+    dispatch(fetchApiFailure(error.message));
   }
 };
 
