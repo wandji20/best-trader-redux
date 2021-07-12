@@ -29,11 +29,8 @@ const Markets = (props) => {
       {
         error === ''
           ? (
-            <div className="container">
+            <div className="container-fluid">
               <Nav />
-              <div>
-                <h1>{process.env.API_URL}</h1>
-              </div>
               <div className="container-fluid bg-dark">
                 <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
                   <Pagination markets={filteredMarkets} />

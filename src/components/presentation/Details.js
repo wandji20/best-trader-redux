@@ -42,7 +42,7 @@ const Details = (props) => {
     },
   };
   return (
-    <section className="item details container mt-3 ">
+    <section className="item details container-fluid pt-3 bg-light ">
       <div className="row">
         <Link
           to="/"
@@ -112,7 +112,7 @@ const Details = (props) => {
       {
         error === ''
           ? (
-            <div id="chart" className="row  my-3">
+            <div id="chart" className="row my-3">
               <Chart
                 options={options}
                 series={[{ data: candleData }]}
