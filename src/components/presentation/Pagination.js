@@ -5,21 +5,23 @@ import { currentPageAction } from '../../redux/action';
 
 const Pagination = (props) => {
   const { markets, handleCurrentPageChange } = props;
+  console.log(markets);
   const marketsPerPage = 9;
   const pages = [];
 
-  for (let i = 1; i < Math.ceil(markets.length / marketsPerPage); i += 1) {
+  for (let i = 1; i < Math.ceil(markets.length / marketsPerPage) + 1; i += 1) {
     pages.push(i);
   }
   return (
     <>
       {
-        pages.map((page) => (
+
+        pages.length > 1 && pages.map((page) => (
           <button
             type="button"
             key={page}
             onClick={() => handleCurrentPageChange(page)}
-            className="page-number"
+            className="page-number mx-1"
           >
             {page}
           </button>
@@ -28,10 +30,6 @@ const Pagination = (props) => {
     </>
   );
 };
-
-// const mapStateToProps = (state) => ({
-//   markets: state.forexReducer.markets,
-// });
 
 const mapDispatchToProps = (dispatch) => ({
   handleCurrentPageChange: (page) => {

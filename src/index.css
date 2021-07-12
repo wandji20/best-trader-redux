@@ -20,4 +20,6 @@ a {
 
 .page-number {
   width: fit-content;
+  border-radius: 5px;
+  border: none;
 }
