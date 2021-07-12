@@ -26,8 +26,6 @@ const marketReducer = (state = initialState, action) => {
         {
           ...state,
           currentPage: action.payload,
-          // market: '',
-          // currency: '',
         }
       );
     }

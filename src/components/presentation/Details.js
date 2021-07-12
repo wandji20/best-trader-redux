@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,8 +12,6 @@ const Details = (props) => {
   const { candleData, getMarketDetails, error } = props;
   const { state } = useLocation();
   const { market } = state;
-
-  console.log(error);
 
   const {
     ticker, bid, ask, changes, high, low,
