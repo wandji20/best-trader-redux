@@ -24,7 +24,8 @@ Also, it uses React Redux Routes to navigate about the app. To achieve these, I 
 
 ## Project Videos
 
-- [Video Presentation](https://www.loom.com/share/5a02991208314a31a252df7a32bcaaff)
+- [Video Presentation 1](https://www.loom.com/share/5a02991208314a31a252df7a32bcaaff)
+- [Video Presentation 2](https://www.loom.com/share/ab2454463d1d4da7b95b3aedfdcc84a1)
 
 ## Built With
 
