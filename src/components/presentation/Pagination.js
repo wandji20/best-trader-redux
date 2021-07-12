@@ -5,7 +5,6 @@ import { currentPageAction } from '../../redux/action';
 
 const Pagination = (props) => {
   const { markets, handleCurrentPageChange } = props;
-  console.log(markets);
   const marketsPerPage = 9;
   const pages = [];
 

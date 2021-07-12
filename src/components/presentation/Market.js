@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import roundDp from '../../helpers/round';
 
 const Market = (props) => {
   const { market } = props;
@@ -17,12 +18,12 @@ const Market = (props) => {
           <span>
             Bid:
             {' '}
-            {bid}
+            {roundDp(bid)}
           </span>
           <span>
             Ask:
             {' '}
-            {ask}
+            {roundDp(ask)}
           </span>
         </p>
         <p className="d-flex justify-content-center">
@@ -32,14 +33,14 @@ const Market = (props) => {
                 <span className="text-info">
                   <FaArrowUp />
                   {' '}
-                  {changes}
+                  {roundDp(changes)}
                 </span>
               )
               : (
                 <span className="text-danger">
                   <FaArrowDown />
                   {' '}
-                  {changes}
+                  {roundDp(changes)}
                 </span>
               )
           }
@@ -49,12 +50,12 @@ const Market = (props) => {
           <span>
             High:
             {' '}
-            {high}
+            {roundDp(high)}
           </span>
           <span>
             Low:
             {' '}
-            {low}
+            {roundDp(low)}
           </span>
         </p>
         <p className="d-flex justify-content-between">
