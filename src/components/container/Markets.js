@@ -6,6 +6,7 @@ import { fetchMarkets } from '../../redux/action';
 import Market from '../presentation/Market';
 import Nav from '../presentation/Nav';
 import filterMarkets from '../../helpers/filterMarkets';
+import Pagination from '../presentation/Pagination';
 
 const Markets = (props) => {
   const {
@@ -25,14 +26,17 @@ const Markets = (props) => {
   const indexOfFirstMarket = indexOfLastMarket - marketsPerPage;
   const currentMarkets = filteredMarkets.slice(indexOfFirstMarket, indexOfLastMarket);
 
+  const paginate  = (pageNumber) => {
+    console.log(pageNumber);
+    setPageNumber(pageNumber);
+  }
+
   return (
     <>
       <Nav />
       <div className="container-fluid bg-dark">
-        <div className="row text-white " style={{ background: '#282c34' }}>
-          <span className="d-inline-block">
-            {`${currentMarkets.length} markets`}
-          </span>
+        <div className="row text-white justify-content-center align-items-center " style={{ background: '#282c34' }}>
+          <Pagination marketsPerPage={marketsPerPage} paginate={paginate}/>
         </div>
         <div className="row">
           {
