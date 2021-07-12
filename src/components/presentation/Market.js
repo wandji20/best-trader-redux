@@ -65,7 +65,7 @@ const Market = (props) => {
                 {
                   pathname: '/Details',
                   hash: ticker,
-                  state: { ticker },
+                  state: { market },
                 }
               }
           >

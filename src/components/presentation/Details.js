@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Chart from 'react-apexcharts';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import createCandleData from '../../helpers/createCandleData';
 
-const Details = (props) => {
+const Details = () => {
   const { state } = useLocation();
+  const { market } = state;
 
-  const selectedTicker = state.ticker;
-  const urlMarketTag = selectedTicker.split('/').join('');
+  const {
+    ticker, bid, ask, changes, high, low,
+  } = market;
+
+  const urlMarketTag = ticker.split('/').join('');
 
   const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
 
@@ -35,14 +39,6 @@ const Details = (props) => {
     };
     getCandleData();
   }, []);
-
-  const { markets } = props;
-
-  const market = markets.filter((market) => (market.ticker === selectedTicker))[0];
-
-  const {
-    ticker, bid, ask, changes, high, low,
-  } = market;
 
   const options = {
     chart: {
@@ -72,7 +68,7 @@ const Details = (props) => {
       <div className="d-flex justify-content-center my-5">
         <div className="col-12 col-md-6">
           {
-            selectedTicker
+            ticker
               ? (
                 <article className="d-flex flex-column bg-dark text-white p-2">
                   <h5>{ticker}</h5>
@@ -140,12 +136,13 @@ const Details = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  markets: state.forexReducer.markets,
-});
+// const mapStateToProps = (state) => ({
+//   markets: state.forexReducer.markets,
+// });
 
-Details.propTypes = {
-  markets: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+// Details.propTypes = {
+//   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
+// };
 
-export default connect(mapStateToProps)(Details);
+// export default connect(mapStateToProps)(Details);
+export default connect(null, null)(Details);
