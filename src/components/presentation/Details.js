@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,9 +10,11 @@ import getMarketDetails from '../../redux/action/marketDetailsAction';
 import roundDp from '../../helpers/round';
 
 const Details = (props) => {
-  const { candleData, getMarketDetails } = props;
+  const { candleData, getMarketDetails, error } = props;
   const { state } = useLocation();
   const { market } = state;
+
+  console.log(error);
 
   const {
     ticker, bid, ask, changes, high, low,
@@ -109,19 +112,30 @@ const Details = (props) => {
           }
         </div>
       </div>
-      <div id="chart" className="row  my-3">
-        <Chart
-          options={options}
-          series={[{ data: candleData }]}
-          type="candlestick"
-          height={350}
-        />
-      </div>
+      {
+        error === ''
+          ? (
+            <div id="chart" className="row  my-3">
+              <Chart
+                options={options}
+                series={[{ data: candleData }]}
+                type="candlestick"
+                height={350}
+              />
+            </div>
+          )
+          : (
+            <div className="row h1 text-danger justify-content-center fs-1">
+              {error}
+            </div>
+          )
+      }
     </section>
   );
 };
 
 const mapStateToProps = (state) => ({
+  error: state.marketDetailsReducer.error,
   candleData: state.marketDetailsReducer.data,
 });
 
@@ -132,9 +146,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Details.propTypes = {
+  error: PropTypes.string.isRequired,
   candleData: PropTypes.arrayOf(PropTypes.object).isRequired,
   getMarketDetails: PropTypes.func.isRequired,
 };
 
-// export default connect(mapStateToProps)(Details);
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

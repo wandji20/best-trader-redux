@@ -29,7 +29,7 @@ const getMarketDetails = (marketTag) => {
       const data = await response.json();
       dispatch(fetchMarketApiSuccess(data));
     } catch (error) {
-      dispatch(fetchMarketApiFailure(error));
+      dispatch(fetchMarketApiFailure(error.message));
     }
   };
 };
