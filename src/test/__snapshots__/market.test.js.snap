@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<article
+  className="col-sm-6 col-md-4 d-flex flex-column bg-dark text-white"
+  id="article"
+>
+  <h5>
+    CAD/JPY
+  </h5>
+  <div
+    className=" d-flex flex-column"
+  >
+    <p
+      className="d-flex justify-content-between"
+    >
+      <span>
+        Bid:
+         
+        88.478
+      </span>
+      <span>
+        Ask:
+         
+        88.478
+      </span>
+    </p>
+    <p
+      className="d-flex justify-content-center"
+    >
+      <span
+        className="text-info"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 448 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
+          />
+        </svg>
+         
+        1.023
+      </span>
+    </p>
+    <p
+      className="d-flex justify-content-between"
+    >
+      <span>
+        High:
+         
+        88.486
+      </span>
+      <span>
+        Low:
+         
+        87.442
+      </span>
+    </p>
+    <p
+      className="d-flex justify-content-between"
+    >
+      <button
+        className="btn btn-success"
+        type="button"
+      >
+        BUY
+      </button>
+      <button
+        className="btn btn-danger"
+        type="button"
+      >
+        SELL
+      </button>
+      <a
+        href="/Details#CAD/JPY"
+        onClick={[Function]}
+      >
+        <button
+          className="btn btn-info"
+          type="button"
+        >
+          MORE
+        </button>
+      </a>
+    </p>
+  </div>
+</article>
+`;

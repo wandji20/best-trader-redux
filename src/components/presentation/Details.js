@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 import Chart from 'react-apexcharts';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import getMarketDetails from '../../redux/action/marketDetailsAction';
@@ -43,9 +44,11 @@ const Details = (props) => {
   return (
     <section className="item details container mt-3 ">
       <div className="row">
-        <a href="/">
+        <Link
+          to="/"
+        >
           <button type="button" className="btn btn-info">ALL MARKETS</button>
-        </a>
+        </Link>
       </div>
       <div className="d-flex justify-content-center my-5">
         <div className="col-12 col-md-6">
