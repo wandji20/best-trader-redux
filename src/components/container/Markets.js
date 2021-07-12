@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useEffect, Fragment, useState } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMarkets } from '../../redux/action';
@@ -10,7 +9,7 @@ import Pagination from '../presentation/Pagination';
 
 const Markets = (props) => {
   const {
-    fetchMarkets, markets, selectedMarket, currency,
+    fetchMarkets, markets, selectedMarket, currency, currentPage,
   } = props;
 
   useEffect(() => {
@@ -18,25 +17,20 @@ const Markets = (props) => {
   }, []);
 
   const filteredMarkets = filterMarkets(markets, selectedMarket, currency);
+  // console.log(currentPage);
 
-  const [marketsPerPage] = useState(9);
-  const [pageNumber, setPageNumber] = useState(1);
+  const marketsPerPage = 9;
 
-  const indexOfLastMarket = marketsPerPage * pageNumber;
+  const indexOfLastMarket = marketsPerPage * currentPage;
   const indexOfFirstMarket = indexOfLastMarket - marketsPerPage;
   const currentMarkets = filteredMarkets.slice(indexOfFirstMarket, indexOfLastMarket);
-
-  const paginate  = (pageNumber) => {
-    console.log(pageNumber);
-    setPageNumber(pageNumber);
-  }
 
   return (
     <>
       <Nav />
       <div className="container-fluid bg-dark">
-        <div className="row text-white justify-content-center align-items-center " style={{ background: '#282c34' }}>
-          <Pagination marketsPerPage={marketsPerPage} paginate={paginate}/>
+        <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
+          <Pagination markets={filteredMarkets} />
         </div>
         <div className="row">
           {
@@ -61,6 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
+  currentPage: state.marketReducer.currentPage,
   markets: state.forexReducer.markets,
   selectedMarket: state.marketReducer.market,
   currency: state.marketReducer.currency,
@@ -71,6 +66,7 @@ Markets.propTypes = {
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedMarket: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Markets);

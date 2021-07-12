@@ -4,6 +4,7 @@ import {
   FETCH_API_REQUEST,
   FILTER_CURRENCY,
   FILTER_MARKETS,
+  CURRENT_PAGE,
 } from '../constants';
 
 const fetchApiRequest = () => ({
@@ -44,6 +45,11 @@ const filterByMarketAction = (market) => ({
   payload: market,
 });
 
+const currentPageAction = (page) => ({
+  type: CURRENT_PAGE,
+  payload: page,
+});
+
 export {
   fetchApiRequest,
   fetchApiSuccess,
@@ -51,4 +57,5 @@ export {
   fetchMarkets,
   filterByCurrencyAction,
   filterByMarketAction,
+  currentPageAction,
 };

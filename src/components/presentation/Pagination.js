@@ -1,10 +1,11 @@
-/* eslint-disable */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { currentPageAction } from '../../redux/action';
 
 const Pagination = (props) => {
-  const { marketsPerPage, markets, paginate } = props;
+  const { markets, handleCurrentPageChange } = props;
+  const marketsPerPage = 9;
   const pages = [];
 
   for (let i = 1; i < Math.ceil(markets.length / marketsPerPage); i += 1) {
@@ -15,7 +16,9 @@ const Pagination = (props) => {
       {
         pages.map((page) => (
           <button
-            onClick={() => paginate(page)}
+            type="button"
+            key={page}
+            onClick={() => handleCurrentPageChange(page)}
             className="page-number"
           >
             {page}
@@ -26,14 +29,19 @@ const Pagination = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  markets: state.forexReducer.markets,
+// const mapStateToProps = (state) => ({
+//   markets: state.forexReducer.markets,
+// });
+
+const mapDispatchToProps = (dispatch) => ({
+  handleCurrentPageChange: (page) => {
+    dispatch(currentPageAction(page));
+  },
 });
 
 Pagination.propTypes = {
-  paginate: PropTypes.func.isRequired,
+  handleCurrentPageChange: PropTypes.func.isRequired,
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  marketsPerPage: PropTypes.number.isRequired,
 };
 
-export default connect(mapStateToProps)(Pagination);
+export default connect(null, mapDispatchToProps)(Pagination);

@@ -1,6 +1,6 @@
-import { FILTER_MARKETS, FILTER_CURRENCY } from '../constants';
+import { FILTER_MARKETS, FILTER_CURRENCY, CURRENT_PAGE } from '../constants';
 
-const initialState = { currency: '', market: '' };
+const initialState = { currency: '', market: '', currentPage: 1 };
 const marketReducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_MARKETS: {
@@ -9,6 +9,7 @@ const marketReducer = (state = initialState, action) => {
         ...state,
         market,
         currency: '',
+        currentPage: 1,
       };
     }
     case FILTER_CURRENCY: {
@@ -17,7 +18,18 @@ const marketReducer = (state = initialState, action) => {
         ...state,
         currency,
         market: '',
+        currentPage: 1,
       };
+    }
+    case CURRENT_PAGE: {
+      return (
+        {
+          ...state,
+          currentPage: action.payload,
+          market: '',
+          currency: '',
+        }
+      );
     }
     default:
       return { ...state };
