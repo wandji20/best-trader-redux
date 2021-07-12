@@ -4,12 +4,14 @@ import {
   FETCH_MARKET_API_REQUEST,
 } from '../constants';
 
-const fetchMarketApiSuccess = () => ({
+const fetchMarketApiSuccess = (data) => ({
   type: FETCH_MARKET_API_SUCCESS,
+  payload: data,
 });
 
-const fetchMarketApiFailure = () => ({
+const fetchMarketApiFailure = (error) => ({
   type: FETCH_MARKET_API_FAILURE,
+  payload: error,
 });
 
 const fetchMarketApiRequst = () => ({

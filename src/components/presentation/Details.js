@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Chart from 'react-apexcharts';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import createCandleData from '../../helpers/createCandleData';
+import getMarketDetails from '../../redux/action/marketDetailsAction';
+// import createCandleData from '../../helpers/createCandleData';
 
-const Details = () => {
+const Details = (props) => {
+  console.log(props);
+  const { candleData, getMarketDetails } = props;
+  console.log(candleData);
   const { state } = useLocation();
   const { market } = state;
 
@@ -14,30 +18,10 @@ const Details = () => {
     ticker, bid, ask, changes, high, low,
   } = market;
 
-  const urlMarketTag = ticker.split('/').join('');
-
-  const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
-
-  const historicalApi = `https://financialmodelingprep.com/api/v3/historical-chart/5min/${urlMarketTag}?apikey=${API_KEY}`;
-
-  const [candleData, setCandleData] = useState({ data: [], error: '' });
+  const marketTag = ticker.split('/').join('');
 
   useEffect(() => {
-    const getCandleData = async () => {
-      try {
-        const response = await fetch(historicalApi);
-        const data = await response.json();
-
-        const createdCandleData = createCandleData(data);
-
-        if (createdCandleData !== []) {
-          setCandleData({ data: createdCandleData, error: '' });
-        }
-      } catch (error) {
-        setCandleData({ data: [], error });
-      }
-    };
-    getCandleData();
+    getMarketDetails(marketTag);
   }, []);
 
   const options = {
@@ -127,7 +111,7 @@ const Details = () => {
       <div id="chart" className="row  my-3">
         <Chart
           options={options}
-          series={[{ data: candleData.data }]}
+          series={[{ data: [] }]}
           type="candlestick"
           height={350}
         />
@@ -136,13 +120,20 @@ const Details = () => {
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   markets: state.forexReducer.markets,
-// });
+const mapStateToProps = (state) => ({
+  candleData: state.marketDetailsReducer.data,
+});
 
-// Details.propTypes = {
-//   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
-// };
+const mapDispatchToProps = (dispatch) => ({
+  getMarketDetails: (marketTag) => {
+    dispatch(getMarketDetails(marketTag));
+  },
+});
+
+Details.propTypes = {
+  candleData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getMarketDetails: PropTypes.func.isRequired,
+};
 
 // export default connect(mapStateToProps)(Details);
-export default connect(null, null)(Details);
+export default connect(mapStateToProps, mapDispatchToProps)(Details);
