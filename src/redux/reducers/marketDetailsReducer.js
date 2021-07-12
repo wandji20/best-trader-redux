@@ -3,6 +3,7 @@ import {
   FETCH_MARKET_API_SUCCESS,
   FETCH_MARKET_API_REQUEST,
 } from '../constants';
+import createCandleData from '../../helpers/createCandleData';
 
 const initialState = {
   fetching: false,
@@ -19,10 +20,11 @@ const marketDetailsReducer = (state = initialState, action) => {
       };
     }
     case FETCH_MARKET_API_SUCCESS: {
+      const candleData = createCandleData(action.payload);
       return {
         ...state,
         fetching: false,
-        data: action.payload,
+        data: candleData,
         error: '',
       };
     }

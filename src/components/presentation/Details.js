@@ -5,12 +5,10 @@ import { useLocation } from 'react-router-dom';
 import Chart from 'react-apexcharts';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import getMarketDetails from '../../redux/action/marketDetailsAction';
-// import createCandleData from '../../helpers/createCandleData';
 
 const Details = (props) => {
-  console.log(props);
   const { candleData, getMarketDetails } = props;
-  console.log(candleData);
+  // console.log(candleData);
   const { state } = useLocation();
   const { market } = state;
 
@@ -111,7 +109,7 @@ const Details = (props) => {
       <div id="chart" className="row  my-3">
         <Chart
           options={options}
-          series={[{ data: [] }]}
+          series={[{ data: candleData }]}
           type="candlestick"
           height={350}
         />
