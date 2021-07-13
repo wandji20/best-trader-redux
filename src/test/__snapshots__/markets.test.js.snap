@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-Array [
+<div
+  className="container-fluid"
+>
   <header
     className="container remove-padding bg-dark text-white"
   >
@@ -57,7 +59,7 @@ Array [
         </div>
       </div>
     </nav>
-  </header>,
+  </header>
   <div
     className="container-fluid bg-dark"
   >
@@ -78,6 +80,6 @@ Array [
          Please Reload to see markets
       </div>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;
