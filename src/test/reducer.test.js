@@ -17,13 +17,14 @@ it('should return the initial state', () => {
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
-const api = `https://financialmodelingprep.com/api/v3/fx?apikey=${API_KEY}`;
+global.fetch = jest.fn(() => Promise.resolve({
+  json: () => Promise.resolve([]),
+}));
 
 it('should execute fetch data', () => {
   const store = mockStore({});
 
-  return store.dispatch(fetchMarkets(api))
+  return store.dispatch(fetchMarkets('aaa'))
     .then(() => {
       const actions = store.getActions();
       expect(actions[0]).toEqual(fetchApiRequest());
