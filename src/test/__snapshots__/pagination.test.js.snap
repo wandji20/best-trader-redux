@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <button
+    className="page-number mx-1"
+    onClick={[Function]}
+    type="button"
+  >
+    1
+  </button>,
+  <button
+    className="page-number mx-1"
+    onClick={[Function]}
+    type="button"
+  >
+    2
+  </button>,
+]
+`;

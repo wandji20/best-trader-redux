@@ -17,3 +17,9 @@ color: #61dafb; */
 a {
   text-decoration: none;
 }
+
+.page-number {
+  width: fit-content;
+  border-radius: 5px;
+  border: none;
+}

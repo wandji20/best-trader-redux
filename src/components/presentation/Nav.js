@@ -53,6 +53,7 @@ const Nav = (props) => {
               onChange={handleCurrencyChange}
               className="form-select nav-item mx-3"
             >
+              <option key="empty">{' '}</option>
               <option key="All">All</option>
               {
                 currencies.sort()

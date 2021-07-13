@@ -1,48 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 import Chart from 'react-apexcharts';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import createCandleData from '../../helpers/createCandleData';
+import getMarketDetails from '../../redux/action/marketDetailsAction';
+import roundDp from '../../helpers/round';
 
 const Details = (props) => {
+  const { candleData, getMarketDetails, error } = props;
   const { state } = useLocation();
-
-  const selectedTicker = state.ticker;
-  const urlMarketTag = selectedTicker.split('/').join('');
-
-  const API_KEY = '8076b7837aeb90bdff5d95b6a81708e8';
-
-  const historicalApi = `https://financialmodelingprep.com/api/v3/historical-chart/5min/${urlMarketTag}?apikey=${API_KEY}`;
-
-  const [candleData, setCandleData] = useState({ data: [], error: '' });
-
-  useEffect(() => {
-    const getCandleData = async () => {
-      try {
-        const response = await fetch(historicalApi);
-        const data = await response.json();
-
-        const createdCandleData = createCandleData(data);
-
-        if (createdCandleData !== []) {
-          setCandleData({ data: createdCandleData, error: '' });
-        }
-      } catch (error) {
-        setCandleData({ data: [], error });
-      }
-    };
-    getCandleData();
-  }, []);
-
-  const { markets } = props;
-
-  const market = markets.filter((market) => (market.ticker === selectedTicker))[0];
+  const { market } = state;
 
   const {
     ticker, bid, ask, changes, high, low,
   } = market;
+
+  const marketTag = ticker.split('/').join('');
+
+  useEffect(() => {
+    getMarketDetails(marketTag);
+  }, []);
 
   const options = {
     chart: {
@@ -63,16 +42,18 @@ const Details = (props) => {
     },
   };
   return (
-    <section className="item details container mt-3 ">
+    <section className="item details container-fluid pt-3 bg-light ">
       <div className="row">
-        <a href="/">
+        <Link
+          to="/"
+        >
           <button type="button" className="btn btn-info">ALL MARKETS</button>
-        </a>
+        </Link>
       </div>
       <div className="d-flex justify-content-center my-5">
         <div className="col-12 col-md-6">
           {
-            selectedTicker
+            ticker
               ? (
                 <article className="d-flex flex-column bg-dark text-white p-2">
                   <h5>{ticker}</h5>
@@ -81,12 +62,12 @@ const Details = (props) => {
                       <span>
                         Bid:
                         {' '}
-                        {bid}
+                        {roundDp(bid)}
                       </span>
                       <span>
                         Ask:
                         {' '}
-                        {ask}
+                        {roundDp(ask)}
                       </span>
                     </p>
                     <p className="d-flex justify-content-center">
@@ -96,14 +77,14 @@ const Details = (props) => {
                             <span className="text-info">
                               <FaArrowUp />
                               {' '}
-                              {changes}
+                              {roundDp(changes)}
                             </span>
                           )
                           : (
                             <span className="text-danger">
                               <FaArrowDown />
                               {' '}
-                              {changes}
+                              {roundDp(changes)}
                             </span>
                           )
                       }
@@ -113,12 +94,12 @@ const Details = (props) => {
                       <span>
                         High:
                         {' '}
-                        {high}
+                        {roundDp(high)}
                       </span>
                       <span>
                         Low:
                         {' '}
-                        {low}
+                        {roundDp(low)}
                       </span>
                     </p>
                   </div>
@@ -128,24 +109,43 @@ const Details = (props) => {
           }
         </div>
       </div>
-      <div id="chart" className="row  my-3">
-        <Chart
-          options={options}
-          series={[{ data: candleData.data }]}
-          type="candlestick"
-          height={350}
-        />
-      </div>
+      {
+        error === ''
+          ? (
+            <div id="chart" className="row my-3">
+              <Chart
+                options={options}
+                series={[{ data: candleData }]}
+                type="candlestick"
+                height={350}
+              />
+            </div>
+          )
+          : (
+            <div className="row h1 text-danger justify-content-center fs-1">
+              {error}
+            </div>
+          )
+      }
     </section>
   );
 };
 
 const mapStateToProps = (state) => ({
-  markets: state.forexReducer.markets,
+  error: state.marketDetailsReducer.error,
+  candleData: state.marketDetailsReducer.data,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getMarketDetails: (marketTag) => {
+    dispatch(getMarketDetails(marketTag));
+  },
 });
 
 Details.propTypes = {
-  markets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  error: PropTypes.string.isRequired,
+  candleData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getMarketDetails: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Details);
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

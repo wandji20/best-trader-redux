@@ -1,4 +1,8 @@
-import { FETCH_API_FAILURE, FETCH_API_REQUEST, FETCH_API_SUCCESS } from '../constants';
+import {
+  FETCH_API_FAILURE,
+  FETCH_API_REQUEST,
+  FETCH_API_SUCCESS,
+} from '../constants';
 
 const initialState = {
   markets: [],
