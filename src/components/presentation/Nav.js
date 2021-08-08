@@ -26,9 +26,9 @@ const Nav = (props) => {
   };
 
   return (
-    <header className="container remove-padding bg-dark text-white">
-      <nav className="container-fluid d-flex justify-content-between py-3">
-        <div className="d-flex align-items-center justify-content-between w-sm-100 w-75">
+    <header className="container d-flex-justify-content-center remove-padding bg-dark text-white">
+      <nav className="container-fluid d-flex justify-content-center py-3">
+        <div className="d-flex align-items-center justify-content-between w-100">
           <h5 className="d-none d-md-flex">
             <a href="/" className="text-info">
               <span className="">

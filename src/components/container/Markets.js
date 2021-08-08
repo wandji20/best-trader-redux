@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMarkets } from '../../redux/action';
@@ -25,37 +25,34 @@ const Markets = (props) => {
   const currentMarkets = filteredMarkets.slice(indexOfFirstMarket, indexOfLastMarket);
 
   return (
-    <>
+    <div className="container-fluid" id="markets">
+      <Nav />
       {
-        error === ''
-          ? (
-            <div className="container-fluid">
-              <Nav />
-              <div className="container-fluid bg-dark">
-                <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
-                  <Pagination markets={filteredMarkets} />
-                </div>
-                <div className="row">
-                  {
-                  currentMarkets.length > 0
-                    ? currentMarkets.map((market) => {
-                      const newMarket = { ...market };
-                      newMarket.changes = market.changes.toString();
-                      return <Market key={newMarket.ticker} market={newMarket} />;
-                    })
-                    : <div className="col-6"> Please Reload to see markets</div>
-                }
-                </div>
-              </div>
-            </div>
+        error !== ''
+          && (
+          <div className="row h1 text-danger justify-content-center fs-1">
+            {error}
+          </div>
           )
-          : (
-            <div className="row h1 text-danger justify-content-center fs-1">
-              {error}
-            </div>
-          )
-}
-    </>
+      }
+      <div className="container-fluid bg-dark">
+        <div className="row text-white justify-content-center align-items-center pt-2 " style={{ background: '#282c34' }}>
+          <Pagination markets={filteredMarkets} />
+        </div>
+        <div className="row">
+          {
+            currentMarkets.length > 0
+              ? currentMarkets.map((market) => {
+                const newMarket = { ...market };
+                newMarket.changes = market.changes.toString();
+                return <Market key={newMarket.ticker} market={newMarket} />;
+              })
+              : <div className="col-6"> Please Reload to see markets</div>
+          }
+        </div>
+      </div>
+    </div>
+
   );
 };
 

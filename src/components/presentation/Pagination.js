@@ -20,7 +20,7 @@ const Pagination = (props) => {
             type="button"
             key={page}
             onClick={() => handleCurrentPageChange(page)}
-            className="page-number mx-1"
+            className="page-number m-1"
           >
             {page}
           </button>
