@@ -5,7 +5,7 @@
 # Best Trader
 
 A React Redux app which fetches data from API endpoint and displays this data on the main page based on a filter if any.
-Also, it uses React Redux Routes to navigate about the app. To achieve these, I used
+Also, it uses React Redux for storage and react-router-dom to navigate about the app. To achieve these, I used
 
 - functional components
 - components lifecycle methods
